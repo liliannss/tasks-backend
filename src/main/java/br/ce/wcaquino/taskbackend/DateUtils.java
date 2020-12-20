@@ -1,4 +1,4 @@
-package br.ce.wcaquino.taskbackend.utils;
+package br.ce.wcaquino.taskbackend;
 
 import java.time.LocalDate;
 
