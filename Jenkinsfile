@@ -59,5 +59,21 @@ pipeline {
 				}
 			}
         }
+		stage ('Deploy Prod') {
+            steps {
+				bat 'docker-compose build'
+				bat 'docker-compose up -d' #libera o terminal e o Jenkins entende que o processo foi terminado
+				}
+			}
+        }
+        stage ('Health Check') {
+            sleep(5)
+            steps {
+        		dir('functional-test') {
+        		    git credentialsId: 'github_login', url: 'https://github.com/liliannss/tasks-api-funcional-test.git'
+        		    bat 'mvn verify -Dskip.surefire.tests'
+				}
+			}
+        }
     }
 }
